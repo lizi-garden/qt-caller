@@ -7,9 +7,7 @@
 ```bash
 git clone https://github.com/lizi-garden/qt-caller.git
 cd qt-caller
-mkdir build
-cd build
-cmake ..
+cmake .
 cmake --build .
 ./qt-caller
 ```
