@@ -84,7 +84,7 @@ bool Widget::loadtxt(void)
         namelists << nameFile.readLine();
     }
 
-        return true;
+    return true;
 
 }
 
