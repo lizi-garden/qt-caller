@@ -5,17 +5,10 @@
 #include <QList>
 #include <QRandomGenerator>
 #include <QTimer>
-#include <qapplication.h>
-#include <qfont.h>
-#include <qglobal.h>
-#include <qgridlayout.h>
-#include <qlabel.h>
-#include <qlist.h>
-#include <qnamespace.h>
-#include <qobjectdefs.h>
-#include <qpushbutton.h>
-#include <qwidget.h>
-#include <qwindowdefs.h>
+
+class QGridLayout;
+class QPushButton;
+class QLabel;
 
 class Widget : public QWidget 
 {
@@ -25,13 +18,12 @@ class Widget : public QWidget
 
     private:
         //声明控件
-        QGridLayout *layout = new QGridLayout(this);
-        QPushButton *pushButton = new QPushButton("开始");
-        QLabel *label = new QLabel("预备备");
+        QGridLayout *layout;
+        QPushButton *pushButton;
+        QLabel *label;
 
         //名单读取
         bool loadtxt();
-        qint8 num = 0;
         QList<QString> namelists;
 
         //点名

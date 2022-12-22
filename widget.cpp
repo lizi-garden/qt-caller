@@ -1,13 +1,20 @@
 #include "widget.h"
-#include <QDebug>
-#include <qdebug.h>
-#include <qpushbutton.h>
-#include <qrandom.h>
-#include <qtimer.h>
-#include <qwidget.h>
+#include <QWidget>
+#include <QPushButton>
+#include <QRandomGenerator>
+#include <QGridLayout>
+#include <QPushButton>
+#include <QLabel>
+#include <QTimer>
+#include <QMessageBox>
 
 Widget::Widget()
 {
+    //声明控件
+    layout = new QGridLayout(this);
+    pushButton = new QPushButton("开始");
+    label = new QLabel("预备备");
+
     label->setAlignment(Qt::AlignCenter);
     label->setStyleSheet("border: 2px solid blue");
     label->setScaledContents(true);
@@ -23,9 +30,13 @@ Widget::Widget()
 
     //加载名单
     if(!loadtxt())
-        qDebug() << "读取失败";
+    {
+        QMessageBox::information(this, "读取失败", "请将文件存放于当前程序运行目录，再重新启动程序");
+    }
     else
-        qDebug() << "读取成功";
+    {
+        QMessageBox::information(this, "读取成功", "读取名单成功，请点击继续");
+    }
 
     //连接按钮事件
     connect(pushButton,&QPushButton::clicked,this,&Widget::on_pushButton_clicked);
@@ -68,25 +79,32 @@ bool Widget::loadtxt(void)
     
     QTextStream nameFile(&file);
 
-    while (!nameFile.atEnd()) {
+    while (!nameFile.atEnd())
+    {
         namelists << nameFile.readLine();
-        num++;
     }
 
-    return true;
+        return true;
+
 }
 
 void Widget::caller()
 {
-    qint32 i = QRandomGenerator::global()->bounded(0, num);    
+    if(namelists.isEmpty())
+        return;
+
+    qint32 i = QRandomGenerator::global()->bounded(0, namelists.size());
     label->setText(namelists[i]);
 }
 
 void Widget::play_lists()
 {
+    if(namelists.isEmpty())
+        return;
+
     if(pushButton->isCheckable())
         label->setText(namelists[j++]);
 
-    if(j >= num)
+    if(j >= namelists.size())
         j = 0;
 }
