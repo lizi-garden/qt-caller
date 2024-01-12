@@ -1,3 +1,4 @@
+# The repository will no longer be maintained
 # QTCaller
 
 ### build
